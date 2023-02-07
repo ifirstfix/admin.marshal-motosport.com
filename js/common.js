@@ -99,9 +99,16 @@ $.validator.addMethod("equalDay", function(value, element, param) {
 // form validate t
 // เช็คขนาดไฟล์
 $.validator.addMethod('filesize', function(value, element, param) {
+  // console.log(element.files)
     // alert(value + ' - '+ element.files[0].size + ' - '+ param + ' - ' +this.optional(element) );
    return this.optional(element) || (element.files[0].size <= param) 
 });   
+
+// เช็คขนาดไฟล์หลายไฟล์
+$.validator.addMethod('filesize_multi', function(value, element, param) {
+  return this.optional(element) || (element.files[0].size <= param) 
+}); 
+
 // เช็คนามสกุลไฟล์
 $.validator.addMethod("accepta",function(t,e,i){
     var a,r,n="string"==typeof i?i.replace(/\s/g,"").replace(/,/g,"|"):"image/*",s=this.optional(e);

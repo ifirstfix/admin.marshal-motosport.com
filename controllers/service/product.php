@@ -49,6 +49,80 @@ if ($cmd != "") {
         $response['data'] = $ds;
         $response['status'] = true;
 
+    } else if($cmd == "product_brand"){
+        $sql = "SELECT
+                    tb_product_brand.PRODUCT_BRAND_ID, 
+                    tb_product_brand.PRODUCT_BRAND_NAME_TH, 
+                    tb_product_brand.PRODUCT_BRAND_NAME_EN, 
+                    tb_product_brand.PRODUCT_STATUS, 
+                    tb_product_brand.CREATEDATETIME, 
+                    tb_product_type.PRODUCT_TYPE_NAME_TH,
+                    tb_product_brand.PRODUCT_TYPE_ID
+                FROM
+                    tb_product_brand
+                    INNER JOIN
+                    tb_product_type
+                    ON 
+                        tb_product_brand.PRODUCT_TYPE_ID = tb_product_type.PRODUCT_TYPE_ID";
+        $sql_param = array();
+        $ds = null;
+        $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");
+        $response['data'] = $ds;
+        $response['status'] = true;
+
+    } else if ($cmd == "remove_brand"){
+        $id    = isset($_POST['id']) ? $_POST['id'] : "";
+        $sql = "DELETE FROM tb_product_brand WHERE PRODUCT_BRAND_ID = @id";
+        $sql_param = array();
+        $sql_param['id'] = $id;
+        $res = $DB->execute($sql, $sql_param);
+
+        if ($res > 0) {
+            $response['status'] = true;
+            $response['msg'] = 'Successfully';
+        }else{
+            $response['status'] = false;
+            $response['msg'] = 'Unsuccessfully';
+        }
+
+    } else if ($cmd == "active_brand"){
+        $id         = isset($_POST['id']) ? $_POST['id'] : "";
+        $active     = isset($_POST['active']) ? $_POST['active'] : "";
+        
+        $sql_param = array();
+        $sql_param['PRODUCT_BRAND_ID']  = $id;
+        $sql_param['PRODUCT_STATUS']    = $active;
+        $res = $DB->executeUpdate('tb_product_brand', 1, $sql_param);
+
+        if ($res > 0) {
+            $response['status'] = true;
+            $response['msg'] = 'Update successfully';
+        }else{
+            $response['status'] = false;
+            $response['msg'] = 'Update unsuccessfully';
+        }
+
+    } else if ($cmd == "edit_brand"){
+        if (!empty($_POST['brand_id'])){
+            $sql_param = array();
+            $sql_param['PRODUCT_BRAND_ID'] = $_POST['brand_id'];
+            if (!empty($_POST['brand_th'])) $sql_param['PRODUCT_BRAND_NAME_TH'] = $_POST['brand_th'];
+            if (!empty($_POST['brand_en'])) $sql_param['PRODUCT_BRAND_NAME_EN'] = $_POST['brand_en'];
+            if (!empty($_POST['brand_cate'])) $sql_param['PRODUCT_TYPE_ID'] = $_POST['brand_cate'];
+            
+            $res = $DB->executeUpdate('tb_product_brand', 1, $sql_param);
+        }else{
+            $res = 1;
+        }
+
+        if ($res > 0) {
+            $response['status'] = true;
+            $response['msg'] = 'Update successfully';
+        }else{
+            $response['status'] = false;
+            $response['msg'] = 'Update unsuccessfully';
+        }
+
     } else if ($cmd == "remove"){
         $id    = isset($_POST['id']) ? $_POST['id'] : "";
 
@@ -90,7 +164,7 @@ if ($cmd != "") {
         $add_product_detail_th  = isset($_POST['add_product_detail_th']) ? $_POST['add_product_detail_th'] : "";
         $add_product_detail_en  = isset($_POST['add_product_detail_en']) ? $_POST['add_product_detail_en'] : "";
         $add_product_tag        = isset($_POST['add_product_tag']) ? $_POST['add_product_tag'] : "";
-        $add_product_stock      = isset($_POST['add_product_stock']) ? $_POST['add_product_stock'] : "";
+        // $add_product_stock      = isset($_POST['add_product_stock']) ? $_POST['add_product_stock'] : "";
         $add_product_price_sale = isset($_POST['add_product_price_sale']) ? $_POST['add_product_price_sale'] : "";
         $add_product_price_sale = ($_POST['add_product_tag'] == 'SALE') ? $add_product_price_sale : 0;
         // $add_product_price_sale = ($add_product_price_sale == '') ? 0 : $add_product_price_sale;
@@ -98,15 +172,17 @@ if ($cmd != "") {
         $FILES_ARRAY = array();
         if(!empty($_FILES["add_product_img"]["name"])) {
             foreach ($_FILES['add_product_img']['name'] as $key => $value) {
+                var_dump($value);
                 if (!empty($value)) {
                     $file_arr  = array();
                     $file_name = OMImage::uuname()."." . str_replace(" ", "", basename($_FILES['add_product_img']['type'][$key]));
                     $file_arr['file_name'] = $file_name;
-                    copy($_FILES["add_product_img"]["tmp_name"][$key], ROOT_DIR . "images/product/" . $file_name);
-                    array_push($FILES_ARRAY, $file_arr);
+                    // copy($_FILES["add_product_img"]["tmp_name"][$key], ROOT_DIR . "images/product/" . $file_name);
+                    // array_push($FILES_ARRAY, $file_arr);
                 }
             }
         }
+        exit();
         $JSON_FILE = json_encode($FILES_ARRAY, JSON_UNESCAPED_SLASHES);
 
         $sql_param = array();
@@ -120,7 +196,7 @@ if ($cmd != "") {
         $sql_param['PRODUCT_DETAIL_EN']     = $add_product_detail_en;
         $sql_param['PRODUCT_TAG']           = $add_product_tag;
         $sql_param['PRODUCT_IMG']           = $JSON_FILE;
-        $sql_param['PRODUCT_STOCK']         = intval($add_product_stock);
+        // $sql_param['PRODUCT_STOCK']         = intval($add_product_stock);
         $res = $DB->executeInsert('tb_product', $sql_param, $new_id);
 
         if ($res > 0) {
@@ -146,7 +222,7 @@ if ($cmd != "") {
             if (!empty($_POST['edit_product_detail_en'])) $sql_param['PRODUCT_DETAIL_EN'] = $_POST['edit_product_detail_en'];
             if (!empty($_POST['edit_product_price'])) $sql_param['PRODUCT_PRICE'] = $_POST['edit_product_price'];
             if (!empty($_POST['edit_product_tag'])) $sql_param['PRODUCT_TAG'] = $_POST['edit_product_tag'];
-            if (!empty($_POST['edit_product_stock'])) $sql_param['PRODUCT_STOCK'] = $_POST['edit_product_stock'];
+            // if (!empty($_POST['edit_product_stock'])) $sql_param['PRODUCT_STOCK'] = $_POST['edit_product_stock'];
             $edit_product_price_sale = isset($_POST['edit_product_price_sale']) ? $_POST['edit_product_price_sale'] : "";
             $edit_product_price_sale = ($_POST['edit_product_tag'] == 'SALE') ? number_format($edit_product_price_sale, 2, '.', '') : 0;
             $sql_param['PRODUCT_PRICE_SALE'] = $edit_product_price_sale;
@@ -310,6 +386,37 @@ if ($cmd != "") {
             }
         }
 
+    } else if ($cmd == "add_product_brand"){
+        $list_product_brand   = isset($_POST['list_product_brand']) ? $_POST['list_product_brand'] : "";
+        $product_brand_th   = isset($_POST['product_brand_th']) ? $_POST['product_brand_th'] : "";
+        $product_brand_en   = isset($_POST['product_brand_en']) ? $_POST['product_brand_en'] : "";
+
+        $sql_param = array();
+        $new_id = "";
+        $sql_param['PRODUCT_TYPE_ID']  = $list_product_brand;
+        $sql_param['PRODUCT_BRAND_NAME_TH']  = $product_brand_th;
+        $sql_param['PRODUCT_BRAND_NAME_EN']  = $product_brand_en;
+        $res = $DB->executeInsert('tb_product_brand', $sql_param, $new_id);
+
+        if ($res > 0) {
+            $response['status'] = true;
+            $response['msg'] = 'Create successfully';
+        }else{
+            $response['status'] = false;
+            $response['msg'] = 'Create unsuccessfully';  
+        }
+
+    } else if ($cmd == "query_cate_product"){
+        $sql = "SELECT * FROM tb_product_type WHERE PRODUCT_STATUS = 'on'";
+        $sql_param = array();
+        $ds = null;
+        $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");
+        if ($res > 0) {
+            $response['data'] = $ds;
+            $response['status'] = true;
+        }else{
+            $response['status'] = false; 
+        }
     } else {
         $response['status'] = false;
         $response['error_msg'] = 'no command';
