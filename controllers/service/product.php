@@ -15,26 +15,38 @@ $cmd = isset($_POST['cmd']) ? $_POST['cmd'] : "";
 
 if ($cmd != "") {
     if($cmd == "product"){
-        $sql = "SELECT  PRODUCT_ID
-                        , PRODUCT_ROWS
-                        , tb_product.PRODUCT_IMG
-                        , PRODUCT_NAME_TH
-                        , PRODUCT_NAME_EN
-                        , PRODUCT_DETAIL_TH
-                        , PRODUCT_DETAIL_EN
-                        , tb_product.PRODUCT_TYPE_ID
-                        , PRODUCT_TYPE_NAME_TH
-                        , PRODUCT_TYPE_NAME_EN
-                        , PRODUCT_PRICE
-                        , tb_product.PRODUCT_STATUS
-                        , tb_product.CREATEDATETIME
-                        , PRODUCT_TAG
-                        , (SELECT MAX(PRODUCT_ROWS) FROM tb_product WHERE tb_product.PRODUCT_STATUS = 'on') AS max_order
-                        , PRODUCT_STOCK
-                        , PRODUCT_PRICE_SALE
-                FROM tb_product
-                INNER JOIN tb_product_type ON tb_product.PRODUCT_TYPE_ID = tb_product_type.PRODUCT_TYPE_ID 
-                ORDER BY PRODUCT_ROWS";
+        $sql = "SELECT
+                    PRODUCT_ID, 
+                    PRODUCT_ROWS, 
+                    tb_product.PRODUCT_IMG, 
+                    PRODUCT_NAME_TH, 
+                    PRODUCT_NAME_EN, 
+                    PRODUCT_DETAIL_TH, 
+                    PRODUCT_DETAIL_EN, 
+                    tb_product.PRODUCT_TYPE_ID, 
+                    PRODUCT_TYPE_NAME_TH, 
+                    PRODUCT_TYPE_NAME_EN, 
+                    PRODUCT_PRICE, 
+                    tb_product.PRODUCT_STATUS, 
+                    tb_product.CREATEDATETIME, 
+                    PRODUCT_TAG, 
+                    (SELECT MAX(PRODUCT_ROWS) FROM tb_product WHERE tb_product.PRODUCT_STATUS = 'on') AS max_order, 
+                    PRODUCT_STOCK, 
+                    PRODUCT_PRICE_SALE, 
+                    tb_product_type.PRODUCT_TYPE_ID, 
+                    tb_product_brand.PRODUCT_BRAND_NAME_TH
+                FROM
+                    tb_product
+                    LEFT JOIN
+                    tb_product_type
+                    ON 
+                        tb_product.PRODUCT_TYPE_ID = tb_product_type.PRODUCT_TYPE_ID
+                    LEFT JOIN
+                    tb_product_brand
+                    ON 
+                        tb_product_type.PRODUCT_TYPE_ID = tb_product_brand.PRODUCT_TYPE_ID
+                ORDER BY
+                    PRODUCT_ROWS ASC";
         $sql_param = array();
         $ds = null;
         $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");

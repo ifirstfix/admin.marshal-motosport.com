@@ -67,10 +67,11 @@
             <th>TAG</th>
             <th>PRODUCT NAME</th>
             <th>PRODUCT TYPE</th>
+            <th>PRODUCT BRAND</th>
             <th>PRODUCT PRICE</th>
             <th>PRODUCT SALE</th>
             <th>PRODUCT ACTIVE</th>
-            <th>Createdatetime</th>
+            <!-- <th>Createdatetime</th> -->
             <th>Tools</th>
           </tr>
         </thead>

@@ -30,20 +30,29 @@
         </div>
       </div>
 
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-          <span class="avatar avatar-sm" style="background-image: url(<?=WEB_META_BASE_URL?>images/baht.png)"></span>
-          <div class="d-none d-xl-block ps-2">
-            <div>THB to USD</div>
-            <div id="currency_text" class="mt-1 small text-muted"><?=currency()?></div>
-          </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-          <input id="currency_thb" type="text" value="<?=currency()?>" class="form-control">
-          <button id="currency" class="btn btn-success btn-sm w-100">Change</button>
-        </div>
-      </div>
-
+      <?php 
+      
+          if(isset($_SESSION['isAdmin'])){
+            // var_dump($_SESSION['group']);
+            if($_SESSION['isAdmin']){
+      ?>
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <span class="avatar avatar-sm" style="background-image: url(<?=WEB_META_BASE_URL?>images/baht.png)"></span>
+                <div class="d-none d-xl-block ps-2">
+                  <div>THB to USD</div>
+                  <div id="currency_text" class="mt-1 small text-muted"><?=currency()?></div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <input id="currency_thb" type="text" value="<?=currency()?>" class="form-control">
+                <button id="currency" class="btn btn-success btn-sm w-100">Change</button>
+              </div>
+            </div>
+      <?php
+            }
+          }
+      ?>
     </div>
   </div>
 </header>

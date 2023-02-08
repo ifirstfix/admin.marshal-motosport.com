@@ -37,6 +37,9 @@ if ($cmd != "") {
                 $accounts_lang      = $obj['EMPLOYEE_LANGUAGEUSER'];
             }
 
+            $isAdmin = ($accounts_group == '1') ? true : false;
+
+
             if($accounts_status == true){
                  if(my_decrypt($accounts_pwd, WCMSetting::$ENCRYPT_LOGIN) == $login_password){
 
@@ -47,13 +50,14 @@ if ($cmd != "") {
                     $_SESSION['expire_time']    = 86400 * 30;
                     $_SESSION['status']         = true;
                     $_SESSION['user_name']      = $accounts_user;
-                    $_SESSION['isAdmin']        = ($accounts_group == 1) ? true : false;
+                    $_SESSION['isAdmin']        = ($accounts_group == '1') ? true : false;
                     $_SESSION['group']          = $accounts_group;
                     $_SESSION['email']          = $accounts_email;
                     $response['status'] = true;
                     $response['msg'] = 'Login successfully';
 
                 }
+
             }else{
                 $response['status'] = false;
                 $response['msg'] = 'Username has been banned. ';

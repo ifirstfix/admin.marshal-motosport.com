@@ -20,8 +20,9 @@
             <th>NAME</th>
             <th>SURNAME</th>
             <th>EMAIL</th>
-            <th>FACEBOOK</th>
-            <th>GOOGLE</th>
+            <!-- <th>FACEBOOK</th> -->
+            <!-- <th>GOOGLE</th> -->
+            <th>STORE</th>
             <th>REGISTERED</th>
           </tr>
         </thead>

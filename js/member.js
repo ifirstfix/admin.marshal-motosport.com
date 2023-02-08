@@ -23,12 +23,13 @@ $(function() {
             { "data": "MEMBER_NAME" },
             { "data": "MEMBER_SURNAME" },
             { "data": "MEMBER_EMAIL" },
-            { "data": "MEMBER_FACEBOOK" },
-            { "data": "MEMBER_GOOGLE" },
+            // { "data": "MEMBER_FACEBOOK" },
+            // { "data": "MEMBER_GOOGLE" },
+            { "data": "MEMBER_STORENAME" },
             { "data": "CREATEDATETIME", render: datetime}
         ],
         "columnDefs": [
-            { targets: [0, 6], className: "text-center" },
+            { targets: [0, 5], className: "text-center" },
         ],
         "initComplete": function( settings, start, end, max, total, pre ) {
         }
@@ -36,7 +37,7 @@ $(function() {
 
 
     function datetime(data, type, row, meta){
-        return moment(data).format('YYYY-MM-DD HH:mm:ss');
+        return moment(data).format('YYYY-MM-DD HH:mm');
     }
 });
 

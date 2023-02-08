@@ -13,7 +13,7 @@ class WCMSetting {
 	static $ENCRYPT_LOGIN = "KEYEMPLOYEE";
 	//---------- Section 1: Database and Host configuration -------- rjxP4Vdm7pzPigR7Ryq87Q==  mysql
 
-	static $DEFAULT_DATABASE_CONNECTION_STRING = "ifirstfix.com::db_marshal_motosport::marshal::rdO6BOAkHxoQLkT9yWoHVQ==::mysql";
+	static $DEFAULT_DATABASE_CONNECTION_STRING = "203.159.94.3::db_marshal_motosport::dev::PgNSf7QNizUE/KSfZOgWOw==::mysql";
 	// static $DEFAULT_DATABASE_CONNECTION_STRING = "ifirstfix.com::iff_wlap::iff_min_wlap::Tgmoyn3c/lgOvnhy61igpA==::mysql";
 	
 	//---------- Section 1.1: Revision configuration --------

@@ -386,18 +386,19 @@ function datatable(edit_quill_th, edit_quill_en){
             { "data": "PRODUCT_TAG", render: product_tag},
             { "data": "PRODUCT_NAME_TH"},
             { "data": "PRODUCT_TYPE_ID", render: product_type },
+            { "data": "PRODUCT_BRAND_NAME_TH"},
             { "data": "PRODUCT_PRICE" },
             { "data": "PRODUCT_PRICE_SALE" },
             { "data": "PRODUCT_STATUS", render : product_status},
-            { "data": "CREATEDATETIME", render: datetime},
+            // { "data": "CREATEDATETIME", render: datetime},
             { "data": "PRODUCT_ID", render: tools}
         ],
         columnDefs: [
             { targets: [0], className: "text-center", width: "10%" },
             { targets: [1], className: "text-center", width: "5%" },
             { targets: [2], className: "text-center", width: "5%" },
-            { targets: [3, 4], className: "truncate-200", width: "20%" },
-            { targets: [5,6,7,8, 9], className: "text-center", width: "10%" },
+            { targets: [3, 4, 5], className: "truncate-200", width: "15%" },
+            { targets: [6,7,8,9], className: "text-center" },
         ]
     });
 
@@ -1000,7 +1001,7 @@ function product_status(data, type, row, meta){
 }
 
 function product_type(data, type, row, meta){
-    return row['PRODUCT_TYPE_NAME_TH'] + ' (' + row['PRODUCT_TYPE_NAME_EN'] + ')';
+    return row['PRODUCT_TYPE_NAME_TH'];
 }
 
 function product_order(data, type, row) {
