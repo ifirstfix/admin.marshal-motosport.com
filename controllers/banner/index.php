@@ -83,7 +83,7 @@
                     <div class="col-12 mb-3">
                       <div class="card card-sm">
                         <a class="d-block" target="_blank">
-                          <img id="banner_img" src='<?=WEB_META_BASE_URL?>images/no-image.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
+                          <img id="banner_img" src='<?=WEB_META_BASE_URL?>images/default_banner.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
                         </a>
                         <div class="card-body">
                           <div class="d-flex align-items-center">
@@ -146,7 +146,7 @@
                     <div class="col-12 mb-3">
                       <div class="card card-sm">
                         <a class="d-block" target="_blank">
-                          <img id="edit_show_banner_img" src='<?=WEB_META_BASE_URL?>images/no-image.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
+                          <img id="edit_show_banner_img" src='<?=WEB_META_BASE_URL?>images/default_banner.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
                         </a>
                         <div class="card-body">
                           <div class="d-flex align-items-center">

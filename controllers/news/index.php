@@ -93,18 +93,23 @@ if($_SESSION['status'] != true || ($_SESSION['isAdmin'] != true && $_SESSION['gr
                       <label class="form-label">Public Datetime</label>
                       <input type="text" id="news_public" name="news_public" class="form-control"  placeholder="Please select">
                     </div> 
-                    <div class="col-12 mb-3">
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-6 mb-3">
+
                       <div class="card card-sm">
-                        <a class="d-block" target="_blank">
-                          <img id="show_news_img" src='<?=WEB_META_BASE_URL?>images/no-image.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
-                        </a>
-                        <div class="card-body">
-                          <div class="d-flex align-items-center">
-                            <input id="add_news_img" name="add_news_img" type="file" class="form-control">
+                          <a class="d-block" target="_blank">
+                            <img id="show_news_img" src='<?=WEB_META_BASE_URL?>images/default_news.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
+                          </a>
+                          <div class="card-body">
+                            <div class="d-flex align-items-center">
+                              <input id="add_news_img" name="add_news_img" type="file" class="form-control">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+
                     <div class="col-12 mb-3">
                       <div class="form-floating">
                           <input type="text" id="add_title_th" name="add_title_th" class="form-control" placeholder="Enter user name">
@@ -196,10 +201,11 @@ if($_SESSION['status'] != true || ($_SESSION['isAdmin'] != true && $_SESSION['gr
                           <label class="form-label">Public Datetime</label>
                           <input type="text" id="edit_news_public" name="edit_news_public" class="form-control"  placeholder="Please select">
                         </div> 
-                        <div class="col-12 mb-3">
+                        <div class="row justify-content-md-center">
+                        <div class="col-6 mb-3">
                           <div class="card card-sm">
                             <a class="d-block" target="_blank">
-                              <img id="edit_show_news_img" src='<?=WEB_META_BASE_URL?>images/no-image.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
+                              <img id="edit_show_news_img" src='<?=WEB_META_BASE_URL?>images/default_news.jpg' class="card-img-top" style="height: 20rem;object-fit: cover;">
                             </a>
                             <div class="card-body">
                               <div class="d-flex align-items-center">
@@ -207,6 +213,7 @@ if($_SESSION['status'] != true || ($_SESSION['isAdmin'] != true && $_SESSION['gr
                               </div>
                             </div>
                           </div>
+                        </div>
                         </div>
                         <div class="col-12 mb-3">
                           <div class="form-floating">
