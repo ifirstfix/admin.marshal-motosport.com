@@ -131,10 +131,10 @@ $(function() {
                     success: function(res){
                         if (res.status == true) {
                             $('#modal_add').modal('hide');
-                            alert_center('Process add', res.msg, "success")
+                            alert_center('Process create', res.msg, "success")
                             dtb_product.ajax.reload(null, false);
                         } else {
-                            alert_center('Process update', res.msg, "error")
+                            alert_center('Process create', res.msg, "error")
                         }
                     }
                 });
@@ -327,6 +327,8 @@ $(function() {
         $('#frm_add_product')[0].reset();
         $('#frm_add_product').find('.is-invalid').removeClass("is-invalid");
         $('#frm_add_product').find('.is-valid').removeClass("is-valid");
+        $('[name="add_show_product_img"]').attr('src', BASE_URL + 'images/default_product.jpg');
+
     });
 
     $("#modal_add_type").on("hidden.bs.modal", function () {

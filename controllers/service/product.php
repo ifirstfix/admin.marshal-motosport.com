@@ -184,17 +184,16 @@ if ($cmd != "") {
         $FILES_ARRAY = array();
         if(!empty($_FILES["add_product_img"]["name"])) {
             foreach ($_FILES['add_product_img']['name'] as $key => $value) {
-                var_dump($value);
                 if (!empty($value)) {
                     $file_arr  = array();
                     $file_name = OMImage::uuname()."." . str_replace(" ", "", basename($_FILES['add_product_img']['type'][$key]));
                     $file_arr['file_name'] = $file_name;
-                    // copy($_FILES["add_product_img"]["tmp_name"][$key], ROOT_DIR . "images/product/" . $file_name);
-                    // array_push($FILES_ARRAY, $file_arr);
+                    copy($_FILES["add_product_img"]["tmp_name"][$key], ROOT_DIR . "images/product/" . $file_name);
+                    array_push($FILES_ARRAY, $file_arr);
                 }
             }
         }
-        exit();
+
         $JSON_FILE = json_encode($FILES_ARRAY, JSON_UNESCAPED_SLASHES);
 
         $sql_param = array();
@@ -228,12 +227,14 @@ if ($cmd != "") {
         if (!empty($_POST['edit_product_id'])){
             $sql_param = array();
             $sql_param['PRODUCT_ID'] = $_POST['edit_product_id'];
+            if (!empty($_POST['edit_product_type'])) $sql_param['PRODUCT_TYPE_ID'] = $_POST['edit_product_type'];
             if (!empty($_POST['edit_product_name_th'])) $sql_param['PRODUCT_NAME_TH'] = $_POST['edit_product_name_th'];
             if (!empty($_POST['edit_product_name_en'])) $sql_param['PRODUCT_NAME_EN'] = $_POST['edit_product_name_en'];
             if (!empty($_POST['edit_product_detail_th'])) $sql_param['PRODUCT_DETAIL_TH'] = $_POST['edit_product_detail_th'];
             if (!empty($_POST['edit_product_detail_en'])) $sql_param['PRODUCT_DETAIL_EN'] = $_POST['edit_product_detail_en'];
             if (!empty($_POST['edit_product_price'])) $sql_param['PRODUCT_PRICE'] = $_POST['edit_product_price'];
             if (!empty($_POST['edit_product_tag'])) $sql_param['PRODUCT_TAG'] = $_POST['edit_product_tag'];
+
             // if (!empty($_POST['edit_product_stock'])) $sql_param['PRODUCT_STOCK'] = $_POST['edit_product_stock'];
             $edit_product_price_sale = isset($_POST['edit_product_price_sale']) ? $_POST['edit_product_price_sale'] : "";
             $edit_product_price_sale = ($_POST['edit_product_tag'] == 'SALE') ? number_format($edit_product_price_sale, 2, '.', '') : 0;

@@ -97,7 +97,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="card card-sm mb-2">
                                     <a class="d-block" target="_blank">
-                                        <img id="show_product_img_1" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
+                                        <img id="show_product_img_1" name="add_show_product_img" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
                                     </a>
                                     <div class="card-body" style="padding: 5px 0 0 0;">
                                         <div class="d-flex align-items-center">
@@ -110,7 +110,7 @@
                             <div class="col-md-6 col-12 mb-3">
                                     <div class="card card-sm">
                                         <a class="d-block" target="_blank">
-                                            <img id="show_product_img_2" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
+                                            <img id="show_product_img_2" name="add_show_product_img" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
                                         </a>
                                         <div class="card-body" style="padding: 5px 0 0 0;">
                                             <div class="d-flex align-items-center">
@@ -123,7 +123,7 @@
                             <div class="col-md-6 col-12 mb-3">
                                     <div class="card card-sm">
                                         <a class="d-block" target="_blank">
-                                            <img id="show_product_img_3" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
+                                            <img id="show_product_img_3" name="add_show_product_img" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
                                         </a>
                                         <div class="card-body" style="padding: 5px 0 0 0;">
                                             <div class="d-flex align-items-center">
@@ -136,7 +136,7 @@
                             <div class="col-md-6 col-12 mb-3">
                                     <div class="card card-sm">
                                         <a class="d-block" target="_blank">
-                                            <img id="show_product_img_4" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
+                                            <img id="show_product_img_4" name="add_show_product_img" src='<?=WEB_META_BASE_URL?>images/default_product.jpg' class="card-img-top" style="object-fit: cover;height: 305px;">
                                         </a>
                                         <div class="card-body" style="padding: 5px 0 0 0;">
                                             <div class="d-flex align-items-center">
