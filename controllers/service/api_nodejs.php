@@ -61,7 +61,8 @@ if ($cmd != "") {
                     }
                 }
                 $order['products'] = $order_product_all;
-                $list_order[$obj['ORDER_ID']] = $order;
+                // $list_order[$obj['ORDER_ID']] = $order;
+                array_push($list_order, $order);
             }
             $response['status'] = true;
             $response['data'] = $list_order;
