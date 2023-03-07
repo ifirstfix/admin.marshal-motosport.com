@@ -42,7 +42,17 @@ if ($cmd != "") {
                 $order['isPurchase'] = false;
                 $order['stepStatus'] = 0;
 
-                $sql_order_detail = "SELECT tb_order_detail.* FROM tb_order_detail WHERE tb_order_detail.ORDER_ID = @ORDER_ID";
+                $sql_order_detail = "SELECT
+                tb_order_detail.*, 
+                tb_product.PRODUCT_IMG
+            FROM
+                tb_order_detail
+                INNER JOIN
+                tb_product
+                ON 
+                    tb_order_detail.PRODUCT_ID = tb_product.PRODUCT_ID
+            WHERE
+                tb_order_detail.ORDER_ID = @ORDER_ID";
                 $sql_param_order_detail = array();
                 $sql_param_order_detail['ORDER_ID'] = $obj['ORDER_ID'];
                 $ds_order_detail = null;
@@ -51,10 +61,11 @@ if ($cmd != "") {
                 if ($res_order_detail > 0) {  
                     foreach ($ds_order_detail as $obj_order_detail) {
                         // var_dump($obj_order_detail);
+                        $PRODUCT_IMG = isset($obj_order_detail['PRODUCT_IMG']) ? $obj_order_detail['PRODUCT_IMG'] : "";
                         $order_product = [];
                         $order_product['name'] = $obj_order_detail['PRODUCT_NAME'];
                         $order_product['alternative'] = $obj_order_detail['PRODUCT_NAME'];
-                        $order_product['image'] = isset($obj_order_detail['PRODUCT_IMG']) ? $obj_order_detail['PRODUCT_IMG'] : "";;
+                        $order_product['image'] = ($PRODUCT_IMG == '') ? '' : json_Decode($PRODUCT_IMG)[0] ;
                         $order_product['price'] = $obj_order_detail['PRODUCT_PRICE'];
                         $order_product['quantity'] = $obj_order_detail['ORDER_QTY'];
                         array_push($order_product_all, $order_product);
