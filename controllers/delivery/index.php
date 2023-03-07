@@ -190,66 +190,7 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal_add_type" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <form id="frm_delivery_type">
-                <div   div class="modal-status bg-yellow"></div>
-                <div class="modal-header">
-                    <h5 class="modal-title text-yellow">Delivery type</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-5 col-12 mb-3">
-                            <label class="form-label">Delivery type TH</label>
-                            <input type="text" id="delivery_type_th" name="delivery_type_th" class="form-control" placeholder="Enter Delivery type">
-                        </div>
-                        <div class="col-md-5 col-12 mb-3">
-                            <label class="form-label">Delivery type EN</label>
-                            <input type="text" id="delivery_type_en" name="delivery_type_en" class="form-control" placeholder="Enter Delivery type">
-                        </div>
-                        <div class="col-md-2 col-12 mb-3">
-                            <div class="d-none d-sm-inline-block" style="margin-bottom: 3.1rem;"></div>
-                            <button type="submit" id="submit_delivery_type" class="btn btn-yellow ms-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                                Create new type 
-                            </button>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="tb-delivery-type" class="table card-table table-vcenter text-nowrap tb-delivery w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>TYPE NAME TH</th>
-                                            <th>TYPE NAME EN</th>
-                                            <th class="text-center">ACTIVE</th>
-                                            <th class="text-center">TOOLS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tb-tbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn btn-white ms-auto" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-  
+<div id="modal_add_type"></div>
 <div id="modal_gallery_image"></div>
 <div id="modal_remove"></div>
 <div id="modal_remove_type"></div>

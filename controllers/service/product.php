@@ -17,6 +17,7 @@ if ($cmd != "") {
     if($cmd == "product"){
         $sql = "SELECT
                     PRODUCT_ID, 
+                    PRODUCT_NO,
                     PRODUCT_ROWS, 
                     tb_product.PRODUCT_IMG, 
                     PRODUCT_NAME_TH, 
@@ -168,7 +169,7 @@ if ($cmd != "") {
         }
 
     } else if ($cmd == "add_product"){
-
+        $add_product_no         = isset($_POST['add_product_no']) ? $_POST['add_product_no'] : "";
         $add_product_name_th    = isset($_POST['add_product_name_th']) ? $_POST['add_product_name_th'] : "";
         $add_product_name_en    = isset($_POST['add_product_name_en']) ? $_POST['add_product_name_en'] : "";
         $add_product_price      = isset($_POST['add_product_price']) ? $_POST['add_product_price'] : "";
@@ -198,6 +199,8 @@ if ($cmd != "") {
 
         $sql_param = array();
         $new_id = "";
+
+        $sql_param['PRODUCT_NO']            = $add_product_no;
         $sql_param['PRODUCT_NAME_TH']       = $add_product_name_th;
         $sql_param['PRODUCT_NAME_EN']       = $add_product_name_en;
         $sql_param['PRODUCT_TYPE_ID']       = $add_product_type;
@@ -228,6 +231,7 @@ if ($cmd != "") {
             $sql_param = array();
             $sql_param['PRODUCT_ID'] = $_POST['edit_product_id'];
             if (!empty($_POST['edit_product_type'])) $sql_param['PRODUCT_TYPE_ID'] = $_POST['edit_product_type'];
+            if (!empty($_POST['edit_product_no'])) $sql_param['PRODUCT_NO'] = $_POST['edit_product_no'];
             if (!empty($_POST['edit_product_name_th'])) $sql_param['PRODUCT_NAME_TH'] = $_POST['edit_product_name_th'];
             if (!empty($_POST['edit_product_name_en'])) $sql_param['PRODUCT_NAME_EN'] = $_POST['edit_product_name_en'];
             if (!empty($_POST['edit_product_detail_th'])) $sql_param['PRODUCT_DETAIL_TH'] = $_POST['edit_product_detail_th'];

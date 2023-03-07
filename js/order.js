@@ -303,6 +303,8 @@ function order_status(data, type, row, meta){
         orderBTN = 'secondary';
     }else if(data == 'Voided'){
         orderBTN = 'primary';
+    }else{
+        orderBTN = 'light';   
     }
     
     return '<button data-id="' + row['ORDER_ID'] + '" data-status="' + data + '" name="order_status" class="btn btn-' + orderBTN + ' btn-square w-100">' + data + '</button>';

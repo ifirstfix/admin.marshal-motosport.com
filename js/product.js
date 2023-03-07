@@ -67,6 +67,9 @@ $(function() {
     $("#frm_add_product").validate({
         ignore: ".quill *",
         rules: {
+            add_product_no:{
+                required: true
+            },
             add_product_type: {
               required: true
             },
@@ -145,6 +148,9 @@ $(function() {
     $("#frm_edit_product").validate({
         ignore: ".quill *",
         rules: {
+            edit_product_no: {
+                required: true
+            },
             edit_product_type: {
                 required: true
             },
@@ -344,12 +350,147 @@ $(function() {
     });
 
     $('#btn_product_type').on('click', function(){
-        $('#modal_add_type').modal('show');
+        // $('#modal_add_type').modal('show');
+
+        var typeHTML = `<div class="modal modal-blur fade" id="modal_add_type_gen" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+                            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                                <div class="modal-content">
+                                    <form id="frm_type">
+                                        <div class="modal-status bg-yellow"></div>
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-yellow">Product type</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-5 col-12 mb-3">
+                                                    <label class="form-label">Product type TH</label>
+                                                    <input type="text" id="product_type_th" name="product_type_th" class="form-control" placeholder="Enter Product type">
+                                                </div>
+                                                <div class="col-md-5 col-12 mb-3">
+                                                    <label class="form-label">Product type EN</label>
+                                                    <input type="text" id="product_type_en" name="product_type_en" class="form-control" placeholder="Enter Product type">
+                                                </div>
+                                                <div class="col-md-2 col-12 mb-3">
+                                                    <div class="d-none d-sm-inline-block" style="margin-bottom: 3.1rem;"></div>
+                                                    <button type="submit" id="submit_product_type" class="btn btn-yellow ms-auto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                            <line x1="12" y1="5" x2="12" y2="19" />
+                                                            <line x1="5" y1="12" x2="19" y2="12" />
+                                                        </svg>
+                                                        Create new type 
+                                                    </button>
+                                                </div>
+                        
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table id="tb_product_type" class="table card-table table-vcenter text-nowrap w-100">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ORDER</th>
+                                                                    <th>TYPE NAME TH</th>
+                                                                    <th>TYPE NAME EN</th>
+                                                                    <th>ACTIVE</th>
+                                                                    <th>TOOLS</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tb-tbody"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                        
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn btn-white ms-auto" data-bs-dismiss="modal">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>`
+        $('#modal_add_type').html(typeHTML);
+        $('#modal_add_type_gen').modal('show');
+                        
         datatable_type();
     });
 
     $('#btn_product_brand').on('click', function(){
-        $('#modal_add_brand').modal('show');
+        // $('#modal_add_brand').modal('show');
+        var brandHTML = `<div class="modal modal-blur fade" id="modal_add_brand_gen" role="dialog" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <form id="frm_brand">
+                                    <div class="modal-status bg-yellow"></div>
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-yellow">Product brand</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-2 col-12 mb-3">
+                                                <label class="form-label">Categories</label>
+                                                    <select class="form-select" id="list_product_brand" name="list_product_brand">
+                                                        <option value="" selected disabled>Select Categories</option>
+                                                        <?php
+                                                            foreach (product_type() as $key => $value) {
+                                                                echo '<option value="' . $value['PRODUCT_TYPE_ID'] . '">' . $value['PRODUCT_TYPE_NAME_TH'] . ' (' . $value['PRODUCT_TYPE_NAME_EN'] . ') </option>';
+                                                            }
+                                                        ?>
+                                                    </select>
+                                            </div>
+                                            <div class="col-md-4 col-12 mb-3">
+                                                <label class="form-label">Brand name TH</label>
+                                                <input type="text" id="product_brand_th" name="product_brand_th" class="form-control" placeholder="Enter product brand th">
+                                            </div>
+                                            <div class="col-md-4 col-12 mb-3">
+                                                <label class="form-label">Brand name EN</label>
+                                                <input type="text" id="product_brand_en" name="product_brand_en" class="form-control" placeholder="Enter product brand en">
+                                            </div>
+                                            <div class="col-md-2 col-12 mb-3">
+                                                <div class="d-none d-sm-inline-block" style="margin-bottom: 1.4rem;"></div>
+                                                <button type="submit" id="submit_product_brand" class="btn btn-yellow ms-auto">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <line x1="12" y1="5" x2="12" y2="19" />
+                                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                                    </svg>
+                                                    Create new brand 
+                                                </button>
+                                            </div>
+                    
+                                            <div class="col-12">
+                                                <div class="table-responsive">
+                                                    <table id="tb_product_brand" class="table card-table table-vcenter text-nowrap w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>BRAND NAME TH</th>
+                                                                <th>BRAND NAME EN</th>
+                                                                <th>CATEGORY</th>
+                                                                <th>ACTIVE</th>
+                                                                <th>TOOLS</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tb-tbody"></tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn btn-white ms-auto" data-bs-dismiss="modal">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`
+        $('#modal_add_brand').html(brandHTML);
+        $('#modal_add_brand_gen').modal('show');    
         datatable_brand();
     });
 
@@ -384,6 +525,7 @@ function datatable(edit_quill_th, edit_quill_en){
         type: "JSON",
         columns: [
             { "data": "PRODUCT_ROWS", render: product_order},
+            { "data": "PRODUCT_NO"},
             { "data": "PRODUCT_IMG", render: image},
             { "data": "PRODUCT_TAG", render: product_tag},
             { "data": "PRODUCT_NAME_TH"},
@@ -396,11 +538,13 @@ function datatable(edit_quill_th, edit_quill_en){
             { "data": "PRODUCT_ID", render: tools}
         ],
         columnDefs: [
+            { targets: "_all", defaultContent: "-"},
             { targets: [0], className: "text-center", width: "10%" },
             { targets: [1], className: "text-center", width: "5%" },
             { targets: [2], className: "text-center", width: "5%" },
-            { targets: [3, 4, 5], className: "truncate-200", width: "15%" },
-            { targets: [6,7,8,9], className: "text-center" },
+            { targets: [3], className: "text-center", width: "5%" },
+            { targets: [4, 5, 6], className: "truncate-200", width: "10%" },
+            { targets: [7,8,9,10], className: "text-center" },
         ]
     });
 
@@ -489,7 +633,7 @@ function datatable(edit_quill_th, edit_quill_en){
         $('#edit_product_tag option[value="' + data.tag + '"]').attr('selected', true);
         $('#edit_product_stock').val(data.stock);
         $('#edit_product_price_sale').val(data.sale);
-
+        $('#edit_product_no').val(data.no);
         $.each(JSON.parse(decode_quote(data.img)), function(k, v){
             $('#edit_show_product_img_' + (k + 1)).attr("src", BASE_URL + 'images/product/' + v['file_name']);
         })
@@ -732,7 +876,7 @@ function datatable_type(){
         $(this).attr('name','edit_save');
         var row = $(this).closest("tr");
         var tds = row.find("td").not(':last');
-        
+
         $.each(tds, function(i, el) {
             var txt = $(this).text();
             if(i != 0 && i != 3){
@@ -1052,6 +1196,7 @@ function tools(data, type, row) {
         tools += ' data-tag = "'      + row['PRODUCT_TAG'] + '"';
         tools += ' data-stock = "'    + row['PRODUCT_STOCK'] + '"';
         tools += ' data-sale = "'     + row['PRODUCT_PRICE_SALE'] + '"';
+        tools += ' data-no = "'       + row['PRODUCT_NO'] + '"';
         tools += ' name="update" class="btn btn-warning mx-1"><i class="fas fa-edit"></i></button>';
         tools += '<button name="remove" data-id="' + data + '" class="btn btn-danger mx-1"><i class="far fa-trash-alt"></i></button>';
     return tools;

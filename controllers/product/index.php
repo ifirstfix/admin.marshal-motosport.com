@@ -63,6 +63,7 @@
         <thead>
           <tr>
             <th>ORDER</th>
+            <th>PRODUCT NO</th>
             <th>IMAGES</th>
             <th>TAG</th>
             <th>PRODUCT NAME</th>
@@ -187,6 +188,12 @@
                         </div> -->
                     </div>
                     <div class="col-md-5 col-12">
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
+                                <input type="text" id="add_product_no" name="add_product_no" class="form-control" placeholder="Enter Product Code">
+                                <label for="add_product_no">Product Code.</label>
+                            </div>
+                        </div>
                         <div class="col-12 mb-3">
                             <div class="form-floating">
                                 <select class="form-select" id="add_product_type" name="add_product_type">
@@ -388,6 +395,12 @@
                     <div class="col-md-5 col-12">
                         <div class="col-12 mb-3">
                             <div class="form-floating">
+                                <input type="text" id="edit_product_no" name="edit_product_no" class="form-control" placeholder="Enter Product Code">
+                                <label for="edit_product_no">Product Code.</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
                                 <select class="form-select" id="edit_product_type" name="edit_product_type">
                                     <option value="" selected disabled>Select product type</option>
                                     <?php
@@ -465,137 +478,8 @@
     </div>
 </div>
 
-<div class="modal modal-blur fade" id="modal_add_type" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <form id="frm_type">
-                <div class="modal-status bg-yellow"></div>
-                <div class="modal-header">
-                    <h5 class="modal-title text-yellow">Product type</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-5 col-12 mb-3">
-                            <label class="form-label">Product type TH</label>
-                            <input type="text" id="product_type_th" name="product_type_th" class="form-control" placeholder="Enter Product type">
-                        </div>
-                        <div class="col-md-5 col-12 mb-3">
-                            <label class="form-label">Product type EN</label>
-                            <input type="text" id="product_type_en" name="product_type_en" class="form-control" placeholder="Enter Product type">
-                        </div>
-                        <div class="col-md-2 col-12 mb-3">
-                            <div class="d-none d-sm-inline-block" style="margin-bottom: 3.1rem;"></div>
-                            <button type="submit" id="submit_product_type" class="btn btn-yellow ms-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                                Create new type 
-                            </button>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="tb_product_type" class="table card-table table-vcenter text-nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>ORDER</th>
-                                            <th>TYPE NAME TH</th>
-                                            <th>TYPE NAME EN</th>
-                                            <th>ACTIVE</th>
-                                            <th>TOOLS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tb-tbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn btn-white ms-auto" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal modal-blur fade" id="modal_add_brand" role="dialog" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <form id="frm_brand">
-                <div class="modal-status bg-yellow"></div>
-                <div class="modal-header">
-                    <h5 class="modal-title text-yellow">Product brand</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-2 col-12 mb-3">
-                            <label class="form-label">Categories</label>
-                                <select class="form-select" id="list_product_brand" name="list_product_brand">
-                                    <option value="" selected disabled>Select Categories</option>
-                                    <?php
-                                        foreach (product_type() as $key => $value) {
-                                            echo '<option value="' . $value['PRODUCT_TYPE_ID'] . '">' . $value['PRODUCT_TYPE_NAME_TH'] . ' (' . $value['PRODUCT_TYPE_NAME_EN'] . ') </option>';
-                                        }
-                                    ?>
-                                </select>
-                        </div>
-                        <div class="col-md-4 col-12 mb-3">
-                            <label class="form-label">Brand name TH</label>
-                            <input type="text" id="product_brand_th" name="product_brand_th" class="form-control" placeholder="Enter product brand th">
-                        </div>
-                        <div class="col-md-4 col-12 mb-3">
-                            <label class="form-label">Brand name EN</label>
-                            <input type="text" id="product_brand_en" name="product_brand_en" class="form-control" placeholder="Enter product brand en">
-                        </div>
-                        <div class="col-md-2 col-12 mb-3">
-                            <div class="d-none d-sm-inline-block" style="margin-bottom: 1.4rem;"></div>
-                            <button type="submit" id="submit_product_brand" class="btn btn-yellow ms-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <line x1="12" y1="5" x2="12" y2="19" />
-                                    <line x1="5" y1="12" x2="19" y2="12" />
-                                </svg>
-                                Create new brand 
-                            </button>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table id="tb_product_brand" class="table card-table table-vcenter text-nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th>BRAND NAME TH</th>
-                                            <th>BRAND NAME EN</th>
-                                            <th>CATEGORY</th>
-                                            <th>ACTIVE</th>
-                                            <th>TOOLS</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tb-tbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn btn-white ms-auto" data-bs-dismiss="modal">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+<div id="modal_add_type"></div>
+<div id="modal_add_brand"></div>
 <div id="modal_product_image"></div>
 <div id="modal_remove"></div>
 <div id="modal_remove_type"></div>
