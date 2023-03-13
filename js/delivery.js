@@ -239,6 +239,10 @@ $(function() {
         datatable_type();
     });
 
+    $('.weight_row_price').on('chang', function(e){
+        console.log(e)
+    });
+
 });
 
 function datatable(){

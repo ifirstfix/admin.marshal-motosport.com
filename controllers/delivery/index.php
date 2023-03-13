@@ -105,12 +105,47 @@
                                 <label for="add_delivery_type">Select</label>
                             </div>
                         </div>
-                        <div class="col-6">
+
+                        <div class="col-3 mb-3">
                             <div class="form-floating">
-                                <input type="tel" id="add_delivery_price" name="add_delivery_price" class="form-control" placeholder="Enter price name">
-                                <label for="add_delivery_price">Delivery price</label>
+                                <input type="tel" name="weight_row" class="form-control" placeholder="Enter price name">
+                                <label for="edit_delivery_price">Weight Start</label>
                             </div>
                         </div>
+                        <div class="col-3 mb-3">
+                            <div class="form-floating">
+                                <input type="tel"  name="weight_row" class="form-control" placeholder="Enter price name">
+                                <label for="edit_delivery_price">Weight End</label>
+                            </div>
+                        </div>
+                        <div class="col-3 mb-3">
+                            <div class="form-floating">
+                                <input type="tel" name="weight_row" class="form-control weight_row_price" placeholder="Enter price name">
+                                <label for="edit_delivery_price">price</label>
+                            </div>
+                        </div>
+    
+                        <div class="col-3 mb-3">
+                            <div class="form-floating">
+                                <button type="submit" class="btn btn-yellow ms-auto">
+                                    ลบ
+                                </button>
+                           
+                                <button type="submit" class="btn btn-yellow ms-auto">
+                                    เพิ่ม
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col-3">
+                            <div class="form-floating">
+                                <button class="btn btn btn-white" data-bs-dismiss="modal">X</button>
+                                <button class="btn btn btn-white" data-bs-dismiss="modal">X</button>
+                            </div>
+                            
+                        </div> -->
+
                   </div>
                 </div>
                 <div class="modal-footer">
@@ -167,10 +202,24 @@
                                 <label for="edit_delivery_type">Select</label>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="form-floating">
-                                <input type="tel" id="edit_delivery_price" name="edit_delivery_price" class="form-control" placeholder="Enter price name">
-                                <label for="edit_delivery_price">Delivery price</label>
+                        <div class="col-12">
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <input type="tel" id="edit_delivery_price" name="edit_delivery_price" class="form-control" placeholder="Enter price name">
+                                    <label for="edit_delivery_price">Weight Start</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <input type="tel" id="edit_delivery_price" name="edit_delivery_price" class="form-control" placeholder="Enter price name">
+                                    <label for="edit_delivery_price">Weight End</label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-floating">
+                                    <input type="tel" id="edit_delivery_price" name="edit_delivery_price" class="form-control" placeholder="Enter price name">
+                                    <label for="edit_delivery_price">price</label>
+                                </div>
                             </div>
                         </div>
 
