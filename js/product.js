@@ -235,52 +235,6 @@ $(function() {
         } 
     });
 
-    $("#frm_type").validate({
-        ignore: ".type-order",
-        rules: {
-            product_type_th: {
-                required: true
-            },
-            product_type_en : {
-                required: true
-            }
-        },
-        errorPlacement: function(error, element) {
-        },
-        errorClass: "help-inline text-danger",
-        highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
-            $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
-        },
-        unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
-            $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
-        },
-        submitHandler: function(form, e) {
-            e.preventDefault();
-            var data = new FormData($(form)[0]);
-            data.append("cmd", "add_product_type");
-            $.ajax({
-                type: "post",
-                url: BASE_LANG + "service/product.php",
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(res){
-                    if (res.status == true) {
-                        alert_center('Process add', res.msg, "success")
-                        tb_product_type.ajax.reload(null, false);
-                    } else {
-                        alert_center('Process add', res.msg, "error")
-                    }
-                }
-            });
-
-        } 
-    });
-
     $("#modal_add").on("hidden.bs.modal", function () {
         $('#frm_add_product')[0].reset();
         $('#frm_add_product').find('.is-invalid').removeClass("is-invalid");
@@ -367,6 +321,53 @@ $(function() {
         $('#modal_add_type_gen').modal('show');
                         
         datatable_type();
+
+        $("#frm_type").validate({
+            ignore: ".type-order",
+            rules: {
+                product_type_th: {
+                    required: true
+                },
+                product_type_en : {
+                    required: true
+                }
+            },
+            errorPlacement: function(error, element) {
+            },
+            errorClass: "help-inline text-danger",
+            highlight: function(element) {
+                $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
+                $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
+                $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
+            },
+            submitHandler: function(form, e) {
+                e.preventDefault();
+                var data = new FormData($(form)[0]);
+                data.append("cmd", "add_product_type");
+                $.ajax({
+                    type: "post",
+                    url: BASE_LANG + "service/product.php",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(res){
+                        if (res.status == true) {
+                            alert_center('Process add', res.msg, "success")
+                            tb_product_type.ajax.reload(null, false);
+                        } else {
+                            alert_center('Process add', res.msg, "error")
+                        }
+                    }
+                });
+    
+            } 
+        });
+
     });
 
     $('#btn_product_brand').on('click', function(){
@@ -792,7 +793,7 @@ function datatable_type(){
                 var msg = res['msg'];
                 if (status == true) {
                     alert_center('Process update', msg, "success")
-                    tb_product_type.ajax.reload();
+                    tb_product_type.ajax.reload(null, false);
                 }else{
                     alert_center('Process update', msg, "error")
                 }
@@ -825,7 +826,7 @@ function datatable_type(){
                 var msg = res['msg'];
                 if (status == true) {
                     alert_center('Process update', msg, "success")
-                    tb_product_type.ajax.reload();
+                    tb_product_type.ajax.reload(null, false);
                 }else{
                     alert_center('Process update', msg, "error")
                 }
@@ -856,7 +857,7 @@ function datatable_type(){
                 var msg = res['msg'];
                 if (status == true) {
                     alert_center('Process remove', msg, "success")
-                    tb_product_type.ajax.reload();
+                    tb_product_type.ajax.reload(null, false);
 
                 }else{
                     alert_center('Process remove', msg, "error")
@@ -915,7 +916,7 @@ function datatable_type(){
                 var msg = res['msg'];
                 if (status == true) {
                     alert_center('Process update', msg, "success")
-                    tb_product_type.ajax.reload();
+                    tb_product_type.ajax.reload(null, false);
                 }else{
                     alert_center('Process update', msg, "error")
                 }

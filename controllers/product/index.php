@@ -25,7 +25,7 @@
     }
 </style>
 
-<div class="container-xl">
+<div class="container-fluid">
   <div class="card">
     <div class="card-header">
           <h3 class="card-title">Product</h3>

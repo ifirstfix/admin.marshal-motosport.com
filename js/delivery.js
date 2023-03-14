@@ -116,51 +116,6 @@ $(function() {
         } 
     });
 
-    $("#frm_delivery_type").validate({
-        rules: {
-            delivery_type_th: {
-            required: true
-            },
-            delivery_type_en : {
-            required: true
-            }
-        },
-        errorPlacement: function(error, element) {
-        },
-        errorClass: "help-inline text-danger",
-        highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
-            $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
-        },
-        unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
-            $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
-        },
-        submitHandler: function(form, e) {
-            e.preventDefault();
-            var data = new FormData($(form)[0]);
-            data.append("cmd", "add_delivery_type");
-            $.ajax({
-                type: "post",
-                url: BASE_LANG + "service/delivery.php",
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(res){
-                    if (res.status == true) {
-                        $('#modal_add').modal('hide');
-                        alert_center('Process add', res.msg, "success")
-                        dtb_delivery_type.ajax.reload();
-                    } else {
-                        alert_center('Process add', res.msg, "error")
-                    }
-                }
-            });
-
-        } 
-    });
 
     $("#modal_add").on("hidden.bs.modal", function () {
         $('#frm_add_delivery')[0].reset();
@@ -237,6 +192,52 @@ $(function() {
         $('#modal_add_type').html(deliveryTypeHTML);
         $('#modal_add_type_gen').modal('show');    
         datatable_type();
+
+        $("#frm_delivery_type").validate({
+            rules: {
+                delivery_type_th: {
+                required: true
+                },
+                delivery_type_en : {
+                required: true
+                }
+            },
+            errorPlacement: function(error, element) {
+            },
+            errorClass: "help-inline text-danger",
+            highlight: function(element) {
+                $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
+                $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
+                $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
+            },
+            submitHandler: function(form, e) {
+                e.preventDefault();
+                var data = new FormData($(form)[0]);
+                data.append("cmd", "add_delivery_type");
+                $.ajax({
+                    type: "post",
+                    url: BASE_LANG + "service/delivery.php",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(res){
+                        if (res.status == true) {
+                            $('#modal_add').modal('hide');
+                            alert_center('Process add', res.msg, "success")
+                            dtb_delivery_type.ajax.reload();
+                        } else {
+                            alert_center('Process add', res.msg, "error")
+                        }
+                    }
+                });
+    
+            } 
+        });
     });
 
     $('.weight_row_price').on('chang', function(e){
