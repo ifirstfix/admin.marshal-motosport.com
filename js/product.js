@@ -63,6 +63,34 @@ $(function() {
         }
     });
 
+    $('#add_product_type').on('change', function(){
+        $.ajax({
+            type: "post",
+            url: BASE_LANG + "service/product.php",
+            data: {
+                "cmd": "query_brand",
+                "product_type_value": this.value,
+            },
+            dataType: "json",
+            beforeSend: function(){
+                // $(':button[type="submit"]').prop('disabled', true);
+            },
+            complete: function(){
+                $(':button[type="submit"]').prop('disabled', false);
+            },
+            success: function(res) {
+                var resultBrand = '<option value="" selected disabled>Select product brand</option>';
+                if (res.status == true) {
+                    $.each(res.data, function(k,v){
+                        resultBrand += '<option value="' + v.PRODUCT_BRAND_ID + '" > ' + v.PRODUCT_BRAND_NAME_TH +' </option>';
+                    })
+                }
+
+                $('#add_product_brand').html(resultBrand);
+            }
+        });
+    });
+
     var file_size_limit = 3145728;
     $("#frm_add_product").validate({
         ignore: ".quill *",
@@ -92,6 +120,13 @@ $(function() {
             },
             "add_product_img[]": {
                 filesize_multi: file_size_limit
+            },
+            add_product_brand: {
+                required: true
+            },
+            add_product_weight:{
+                required: true,
+                numberOnly: true
             }
         },
         errorPlacement: function(error, element) {
@@ -497,6 +532,7 @@ $(function() {
             $('.add_price_sale').addClass('d-none');
         }
     });
+
     $('#edit_product_tag').on('change', function(){
         if(this.value == 'SALE'){
             $('.edit_price_sale').removeClass('d-none');
@@ -529,18 +565,16 @@ function datatable(edit_quill_th, edit_quill_en){
             { "data": "PRODUCT_BRAND_NAME_TH"},
             { "data": "PRODUCT_PRICE" },
             { "data": "PRODUCT_PRICE_SALE" },
+            { "data": "PRODUCT_WEIGHT", render : product_weight },
             { "data": "PRODUCT_STATUS", render : product_status},
             // { "data": "CREATEDATETIME", render: datetime},
             { "data": "PRODUCT_ID", render: tools}
         ],
         columnDefs: [
             { targets: "_all", defaultContent: "-"},
-            { targets: [0], className: "text-center", width: "10%" },
-            { targets: [1], className: "text-center", width: "5%" },
-            { targets: [2], className: "text-center", width: "5%" },
-            { targets: [3], className: "text-center", width: "5%" },
+            { targets: [0,1,2,3], className: "text-center", width: "5%" },
             { targets: [4, 5, 6], className: "truncate-200", width: "10%" },
-            { targets: [7,8,9,10], className: "text-center" },
+            { targets: [7,8,9,10,11], className: "text-center" },
         ]
     });
 
@@ -1250,4 +1284,9 @@ function brand_status(data, type, row, meta){
     active_gHTML += '</label>';
     active_gHTML += '</div>';
     return active_gHTML;
+}
+
+function product_weight(data, type, row){
+    return data + ' kg';
+    // return data + ' ' + row['PRODUCT_WEIGHT_TYPE']
 }

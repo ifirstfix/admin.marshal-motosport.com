@@ -35,7 +35,9 @@ if ($cmd != "") {
                     PRODUCT_STOCK, 
                     PRODUCT_PRICE_SALE, 
                     tb_product_type.PRODUCT_TYPE_ID, 
-                    tb_product_brand.PRODUCT_BRAND_NAME_TH
+                    tb_product_brand.PRODUCT_BRAND_NAME_TH,
+                    tb_product.PRODUCT_WEIGHT,
+                    tb_product.PRODUCT_WEIGHT_TYPE
                 FROM
                     tb_product
                     LEFT JOIN
@@ -43,9 +45,9 @@ if ($cmd != "") {
                     ON 
                         tb_product.PRODUCT_TYPE_ID = tb_product_type.PRODUCT_TYPE_ID
                     LEFT JOIN
-                    tb_product_brand
+                        tb_product_brand
                     ON 
-                        tb_product_type.PRODUCT_TYPE_ID = tb_product_brand.PRODUCT_TYPE_ID
+                        tb_product.PRODUCT_BRAND_ID = tb_product_brand.PRODUCT_BRAND_ID
                 ORDER BY
                     PRODUCT_ROWS ASC";
         $sql_param = array();
@@ -181,6 +183,9 @@ if ($cmd != "") {
         $add_product_price_sale = isset($_POST['add_product_price_sale']) ? $_POST['add_product_price_sale'] : "";
         $add_product_price_sale = ($_POST['add_product_tag'] == 'SALE') ? $add_product_price_sale : 0;
         // $add_product_price_sale = ($add_product_price_sale == '') ? 0 : $add_product_price_sale;
+        $add_product_brand = isset($_POST['add_product_brand']) ? $_POST['add_product_brand'] : "";
+        $add_product_weight = isset($_POST['add_product_weight']) ? $_POST['add_product_weight'] : "";
+        $add_product_weight_type = isset($_POST['add_product_weight_type']) ? $_POST['add_product_weight_type'] : "";
 
         $FILES_ARRAY = array();
         if(!empty($_FILES["add_product_img"]["name"])) {
@@ -204,6 +209,9 @@ if ($cmd != "") {
         $sql_param['PRODUCT_NAME_TH']       = $add_product_name_th;
         $sql_param['PRODUCT_NAME_EN']       = $add_product_name_en;
         $sql_param['PRODUCT_TYPE_ID']       = $add_product_type;
+        $sql_param['PRODUCT_BRAND_ID']      = $add_product_brand;
+        $sql_param['PRODUCT_WEIGHT']        = $add_product_weight;
+        $sql_param['PRODUCT_WEIGHT_TYPE']   = $add_product_weight_type;
         $sql_param['PRODUCT_PRICE']         = number_format($add_product_price, 2, '.', '');
         $sql_param['PRODUCT_PRICE_SALE']    = number_format($add_product_price_sale, 2, '.', '');
         $sql_param['PRODUCT_DETAIL_TH']     = $add_product_detail_th;
@@ -428,6 +436,19 @@ if ($cmd != "") {
         $sql_param = array();
         $ds = null;
         $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");
+        if ($res > 0) {
+            $response['data'] = $ds;
+            $response['status'] = true;
+        }else{
+            $response['status'] = false; 
+        }
+    } else if ($cmd == "query_brand"){
+        $product_type_value    = isset($_POST['product_type_value']) ? $_POST['product_type_value'] : "";
+        $sql = "SELECT * FROM tb_product_brand WHERE PRODUCT_TYPE_ID = @product_type_value";
+        $sql_param = array();
+        $sql_param['product_type_value'] = $product_type_value;
+        $ds = null;
+        $res = $DB->query($ds, $sql, $sql_param, 0, 1, "ASSOC");
         if ($res > 0) {
             $response['data'] = $ds;
             $response['status'] = true;

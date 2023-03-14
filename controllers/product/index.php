@@ -63,7 +63,7 @@
         <thead>
           <tr>
             <th>ORDER</th>
-            <th>PRODUCT NO</th>
+            <th>PRODUCT Code</th>
             <th>IMAGES</th>
             <th>TAG</th>
             <th>PRODUCT NAME</th>
@@ -71,6 +71,7 @@
             <th>PRODUCT BRAND</th>
             <th>PRODUCT PRICE</th>
             <th>PRODUCT SALE</th>
+            <th>PRODUCT WEGIHT</th>
             <th>PRODUCT ACTIVE</th>
             <!-- <th>Createdatetime</th> -->
             <th>Tools</th>
@@ -209,6 +210,14 @@
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-floating">
+                                <select class="form-select" id="add_product_brand" name="add_product_brand">
+                                    <option value="" selected disabled>Select product brand</option>
+                                </select>
+                                <label for="add_product_brand">Select</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <div class="form-floating">
                                 <input type="text" id="add_product_name_th" name="add_product_name_th" class="form-control" placeholder="Enter Product name">
                                 <label for="add_product_name_th">Product name TH</label>
                             </div>
@@ -246,6 +255,22 @@
                             <div class="form-floating d-none add_price_sale">
                                 <input type="tel" id="add_product_price_sale" name="add_product_price_sale" class="form-control" placeholder="Enter price name">
                                 <label for="add_product_price_sale">Product price sale</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-12 mb-3">
+                                <div class="form-floating">
+                                    <input type="tel" id="add_product_weight" name="add_product_weight" class="form-control" placeholder="Enter weight name">
+                                    <label for="add_product_weight">Product weight</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12 mb-3">
+                                <div class="form-floating">
+                                    <select class="form-select" id="add_product_weight_type" name="add_product_weight_type">
+                                        <option value="1" selected>kg</option>
+                                    </select>
+                                    <label for="add_product_weight_type">Weight type</label>
+                                </div>
                             </div>
                         </div>
                         <!-- <div class="col-12 mb-3">
