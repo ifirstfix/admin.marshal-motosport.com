@@ -11,10 +11,6 @@ $(function() {
             },
             add_delivery_type : {
               required: true
-            },
-            add_delivery_price : {
-                required: true,
-                numberOnly: true
             }
         },
         errorPlacement: function(error, element) {
@@ -354,6 +350,42 @@ function datatable(){
     $('#dtb_delivery tbody').on( 'click', '[name="update"]', function (e) { 
         $('#modal_edit').modal('show');
         var data = $(e.currentTarget).data();
+        // console.log(data.id);
+        // edit_show_weight_type
+        $.ajax({
+            type: "post",
+            url: BASE_LANG + "service/delivery.php",
+            data: {
+                "cmd": "edit_show_weight_type",
+                "DELIVERY_ID": data.id
+            },
+            dataType: "json",
+            beforeSend: function(){
+                $(':button[type="submit"]').prop('disabled', true);
+            },
+            complete: function(){
+                $(':button[type="submit"]').prop('disabled', false);
+            },
+            success: function(res) {
+                var status = res['status'];
+                // var msg = res['msg'];
+                if (status == true) {
+                    
+                    
+                    for (i=0; i < 6; i++) { 
+                        var data = res['data'][i];
+                        $('#edit_weight_start_'+i).val(data.DELIVERY_WEIGHT_START);
+                        $('#edit_weight_end_'+i).val(data.DELIVERY_WEIGHT_END);
+                        $('#edit_weight_price_'+i).val(data.DELIVERY_WEIGHT_PRICT);
+                        // $('#weight_row_'+i).val(data.DELIVERY_WEIGHT_PRICT);
+                        $('#edit_weight_type_'+i+' option[value="' + data.WEIGHT_ID + '"]').attr('selected', true);
+                    }
+                    // alert_center('Process update', msg, "success")
+                    // dtb_delivery.ajax.reload();
+                }
+            }
+        });
+
         $('#edit_delivery_name_th').val(data.nameTh);
         $('#edit_delivery_name_en').val(data.nameEn);
         $('#edit_delivery_price').val(data.price);

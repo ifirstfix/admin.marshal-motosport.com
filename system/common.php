@@ -730,4 +730,14 @@ function currency(){
     return $ds[0]['SETTING_THB_TO_USD'];
 }
 
+function get_weight(){
+	$DB = OMDb::singleton();
+    $sql = "SELECT * FROM tb_weight";
+
+    $sql_param = array();
+    $ds = null;
+    $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");
+
+    return $ds;
+}
 ?>

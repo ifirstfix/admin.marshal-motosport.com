@@ -69,17 +69,32 @@ if ($cmd != "") {
         $add_delivery_name_th   = isset($_POST['add_delivery_name_th']) ? $_POST['add_delivery_name_th'] : "";
         $add_delivery_name_en   = isset($_POST['add_delivery_name_en']) ? $_POST['add_delivery_name_en'] : "";
         $add_delivery_type      = isset($_POST['add_delivery_type']) ? $_POST['add_delivery_type'] : "";
-        $add_delivery_price     = isset($_POST['add_delivery_price']) ? $_POST['add_delivery_price'] : "";
+        // $add_delivery_price     = isset($_POST['add_delivery_price']) ? $_POST['add_delivery_price'] : "";
 
+        // $jsonData = json_encode($weight_row);
+        // var_dump($weight_row);
+        // exit;
         $sql_param = array();
         $new_id = "";
         $sql_param['DELIVERY_NAME_TH']  = $add_delivery_name_th;
         $sql_param['DELIVERY_NAME_EN']  = $add_delivery_name_en;
         $sql_param['DELIVERY_TYPE_ID']  = $add_delivery_type;
-        $sql_param['DELIVERY_PRICE']    = number_format($add_delivery_price, 2, '.', '');
+        // $sql_param['DELIVERY_WEIGHT']  = json_encode($weight_row);
+        // $sql_param['DELIVERY_PRICE']    = number_format($add_delivery_price, 2, '.', '');
         $res = $DB->executeInsert('tb_delivery', $sql_param, $new_id);
-
         if ($res > 0) {
+            $weight_row = [];
+            for ($i=0; $i < 6; $i++) { 
+                $sql_param_weight = array();
+                $new_id_weight = "";
+                $sql_param_weight['DELIVERY_WEIGHT_START']  = isset($_POST['weight_row_'.$i][0]) ? $_POST['weight_row_'.$i][0] : 0;
+                $sql_param_weight['DELIVERY_WEIGHT_END']  = isset($_POST['weight_row_'.$i][1]) ? $_POST['weight_row_'.$i][1] : 0;
+                $sql_param_weight['DELIVERY_WEIGHT_PRICT']  = isset($_POST['weight_row_'.$i][2]) ? $_POST['weight_row_'.$i][2] : 0;
+                $sql_param_weight['WEIGHT_ID']  = isset($_POST['weight_row_'.$i][3]) ? $_POST['weight_row_'.$i][3] : 0;
+                $sql_param_weight['DELIVERY_ID']  = $new_id;
+                $DB->executeInsert('tb_delivery_weight', $sql_param_weight, $new_id_weight);
+            }
+
             $response['status'] = true;
             $response['msg'] = 'Create successfully';
         }else{
@@ -176,12 +191,32 @@ if ($cmd != "") {
             $response['status'] = false;
             $response['msg'] = 'Update unsuccessfully';
         }
-
+    } else if ($cmd == "edit_show_weight_type"){
+        $DELIVERY_ID   = isset($_POST['DELIVERY_ID']) ? $_POST['DELIVERY_ID'] : "";
+        $sql = "SELECT
+                    tb_weight.WEIGHT_NAME, 
+                    tb_delivery_weight.*
+                FROM
+                    tb_weight
+                    RIGHT JOIN
+                    tb_delivery_weight
+                    ON 
+                        tb_weight.WEIGHT_ID = tb_delivery_weight.WEIGHT_ID
+                WHERE
+                    tb_delivery_weight.DELIVERY_ID = @DELIVERY_ID";
+        $sql_param = array();
+        $sql_param['DELIVERY_ID'] = $DELIVERY_ID ;
+        $ds = null;
+        $res = $DB->query($ds, $sql, $sql_param, 0, -1, "ASSOC");
+        $response['data'] = $ds;
+        $response['status'] = true;
     } else {
         $response['status'] = false;
         $response['error_msg'] = 'no command';
         $response['code'] = '500';
     }
+
+
 
 } else {
     // error
