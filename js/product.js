@@ -281,54 +281,6 @@ $(function() {
         } 
     });
 
-    $("#frm_brand").validate({
-        rules: {
-            list_product_brand: {
-                required: true
-            },
-            product_brand_th : {
-                required: true
-            },
-            product_brand_en : {
-                required: true
-            }
-        },
-        errorPlacement: function(error, element) {
-        },
-        errorClass: "help-inline text-danger",
-        highlight: function(element) {
-            $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
-            $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
-        },
-        unhighlight: function(element) {
-            $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
-            $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
-        },
-        submitHandler: function(form, e) {
-            e.preventDefault();
-            var data = new FormData($(form)[0]);
-            data.append("cmd", "add_product_brand");
-            $.ajax({
-                type: "post",
-                url: BASE_LANG + "service/product.php",
-                data: data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(res){
-                    if (res.status == true) {
-                        alert_center('Process add', res.msg, "success")
-                        tb_product_brand.ajax.reload(null, false);
-                    } else {
-                        alert_center('Process add', res.msg, "error")
-                    }
-                }
-            });
-
-        } 
-    });
-
     $("#modal_add").on("hidden.bs.modal", function () {
         $('#frm_add_product')[0].reset();
         $('#frm_add_product').find('.is-invalid').removeClass("is-invalid");
@@ -433,12 +385,6 @@ $(function() {
                                             <div class="col-md-2 col-12 mb-3">
                                                 <label class="form-label">Categories</label>
                                                     <select class="form-select" id="list_product_brand" name="list_product_brand">
-                                                        <option value="" selected disabled>Select Categories</option>
-                                                        <?php
-                                                            foreach (product_type() as $key => $value) {
-                                                                echo '<option value="' . $value['PRODUCT_TYPE_ID'] . '">' . $value['PRODUCT_TYPE_NAME_TH'] . ' (' . $value['PRODUCT_TYPE_NAME_EN'] . ') </option>';
-                                                            }
-                                                        ?>
                                                     </select>
                                             </div>
                                             <div class="col-md-4 col-12 mb-3">
@@ -490,8 +436,57 @@ $(function() {
                         </div>
                     </div>`
         $('#modal_add_brand').html(brandHTML);
+        query_cate_product();
         $('#modal_add_brand_gen').modal('show');    
         datatable_brand();
+        
+        $("#frm_brand").validate({
+            rules: {
+                list_product_brand: {
+                    required: true
+                },
+                product_brand_th : {
+                    required: true
+                },
+                product_brand_en : {
+                    required: true
+                }
+            },
+            errorPlacement: function(error, element) {
+            },
+            errorClass: "help-inline text-danger",
+            highlight: function(element) {
+                $(element).closest('.form-group').addClass('has-error').removeClass('has-success');
+                $(element).closest('.form-group').prevObject.addClass('is-invalid').removeClass('is-valid');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.form-group').removeClass('has-error').addClass('has-success');//.addClass('has-success');
+                $(element).closest('.form-group').prevObject.removeClass('is-invalid').addClass('is-valid');
+            },
+            submitHandler: function(form, e) {
+                e.preventDefault();
+                var data = new FormData($(form)[0]);
+                data.append("cmd", "add_product_brand");
+                $.ajax({
+                    type: "post",
+                    url: BASE_LANG + "service/product.php",
+                    data: data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(res){
+                        if (res.status == true) {
+                            alert_center('Process add', res.msg, "success")
+                            tb_product_brand.ajax.reload(null, false);
+                        } else {
+                            alert_center('Process add', res.msg, "error")
+                        }
+                    }
+                });
+    
+            } 
+        });
     });
 
     $('#add_product_tag').on('change', function(){

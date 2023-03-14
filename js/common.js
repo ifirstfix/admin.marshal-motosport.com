@@ -635,13 +635,12 @@ function editCourse_speeker(course_id){
   });
 }
 
-function editSelectCourse_speeker(course_id){
+function query_cate_product(){
   $.ajax({
       type: "post",
-      url: BASE_LANG + "service/course.php",
+      url: BASE_LANG + "service/product.php",
       data: {
-        "cmd": "edit_course_speeker",
-        "course_id": course_id
+        "cmd": "query_cate_product"
       },
       dataType: "json",
       beforeSend: function(){
@@ -653,9 +652,12 @@ function editSelectCourse_speeker(course_id){
       success: function(res) {
         var status = res['status'];
         var data   = res['data'];
+        var option = '<option value="" selected disabled>Select Categories</option>';
         $.each(data, function( index, value ) {
-          $('input:checkbox[name=edit-course-speeker-' + value.speaker_stage + '][value="' + value.speaker_id + '"]').prop('checked', true);
+          option += '<option value="' + value['PRODUCT_TYPE_ID'] + '">' + value['PRODUCT_TYPE_NAME_TH'] + ' (' + value['PRODUCT_TYPE_NAME_EN'] + ') </option>'
         });
+
+        $('#list_product_brand').html(option)
       }
   });
 }
@@ -827,3 +829,4 @@ function copyToClipboard(text) {
     timer: 1000,
   });
 }
+
